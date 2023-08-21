@@ -8,7 +8,8 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    public static final int STORAGE_LIMIT = 10000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
 
     public void clear() {
@@ -16,47 +17,44 @@ public class ArrayStorage {
         size = 0;
     }
 
+    public void update(Resume resume) {
+        int index = findIndex(resume.getUuid());
+        if (index >= 0) {
+            System.out.println("Резюме " + resume.getUuid() + " обновлено");
+        } else {
+            printErrorResumeAbsent(resume.getUuid());
+        }
+    }
+
     public void save(Resume r) {
-        if (checkIfResumePresent(r.getUuid())) {
+        if (findIndex(r.getUuid()) >= 0) {
+            System.out.println("Ошибка: резюме с uuid " + r.getUuid() + " уже есть в хранилище");
             return;
         }
-        if (size < storage.length) {
+        if (size < STORAGE_LIMIT) {
             storage[size++] = r;
         } else {
             System.out.println("Ошибка: невозможно добавить резюме, хранилище заполнено");
         }
     }
 
-    public void update(Resume resume) {
-        if (checkIfResumeAbsent(resume.getUuid())) {
-            return;
-        }
-        System.out.println("Резюме " + resume.getUuid() + " обновлено");
-    }
-
     public Resume get(String uuid) {
-        if (checkIfResumeAbsent(uuid)) {
-            return null;
+        int index = findIndex(uuid);
+        if (index >= 0) {
+            return storage[index];
         }
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
-        }
+        printErrorResumeAbsent(uuid);
         return null;
     }
 
     public void delete(String uuid) {
-        if (checkIfResumeAbsent(uuid)) {
-            return;
-        }
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-                break;
-            }
+        int index = findIndex(uuid);
+        if (index >= 0) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        } else {
+            printErrorResumeAbsent(uuid);
         }
     }
 
@@ -71,23 +69,16 @@ public class ArrayStorage {
         return size;
     }
 
-    private boolean checkIfResumeAbsent(String uuid) {
+    private int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
-                return false;
+                return i;
             }
         }
-        System.out.println("Ошибка: резюме с uuid " + uuid + " не найдено");
-        return true;
+        return -1;
     }
 
-    private boolean checkIfResumePresent(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                System.out.println("Ошибка: резюме с uuid " + uuid + " уже есть в хранилище");
-                return true;
-            }
-        }
-        return false;
+    private void printErrorResumeAbsent(String uuid) {
+        System.out.println("Ошибка: резюме с uuid " + uuid + " не найдено");
     }
 }
