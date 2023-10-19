@@ -35,12 +35,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void add(Resume r) {
+    public void performSave(Resume r) {
         storage.add(r);
     }
 
     @Override
-    public void remove(String uuid) {
+    public void performDelete(String uuid) {
         Iterator<Resume> iterator = storage.iterator();
         while (iterator.hasNext()) {
             Resume resume = iterator.next();
@@ -51,7 +51,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void change(Resume r) {
+    public void performUpdate(Resume r) {
         ListIterator<Resume> iterator = storage.listIterator();
         while (iterator.hasNext()) {
             Resume resume = iterator.next();
@@ -62,7 +62,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume receive(String uuid) {
+    public Resume performGet(String uuid) {
         for (Resume resume : storage) {
             if (resume.getUuid().equals(uuid)) {
                 return resume;
