@@ -72,8 +72,8 @@ class ListStorageTest {
 
     @Test
     void checkIfExists() {
-        Assertions.assertTrue(storage.checkIfExists(UUID_1));
-        Assertions.assertFalse(storage.checkIfExists(UUID_NOT_EXIST));
+        Assertions.assertTrue(storage.isExist(UUID_1));
+        Assertions.assertFalse(storage.isExist(UUID_NOT_EXIST));
     }
 
     @Test

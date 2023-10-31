@@ -10,13 +10,18 @@ import java.util.ListIterator;
 public class ListStorage extends AbstractStorage {
     private final List<Resume> storage = new ArrayList<>();
 
-    public boolean checkIfExists(String uuid) {
-        for (Resume resume : storage) {
-            if (resume.getUuid().equals(uuid)) {
-                return true;
+    @Override
+    public Integer getSearchKey(String uuid) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getUuid().equals(uuid)) {
+                return i;
             }
         }
-        return false;
+        return null;
+    }
+
+    public boolean isExist(Object searchKey) {
+        return searchKey != null;
     }
 
     @Override
@@ -35,7 +40,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void performSave(Resume r) {
+    public void doSave(Resume r) {
         storage.add(r);
     }
 
@@ -51,7 +56,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void performUpdate(Resume r) {
+    public void doUpdate(Resume r) {
         ListIterator<Resume> iterator = storage.listIterator();
         while (iterator.hasNext()) {
             Resume resume = iterator.next();
@@ -62,7 +67,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume performGet(String uuid) {
+    public Resume doGet(String uuid) {
         for (Resume resume : storage) {
             if (resume.getUuid().equals(uuid)) {
                 return resume;
