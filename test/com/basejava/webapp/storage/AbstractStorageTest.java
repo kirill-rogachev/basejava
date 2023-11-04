@@ -2,14 +2,13 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
-import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 import org.junit.jupiter.api.*;
 
-import static com.basejava.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
+import java.util.Arrays;
 
 public abstract class AbstractStorageTest {
-    private final Storage storage;
+    protected final Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -51,6 +50,7 @@ public abstract class AbstractStorageTest {
     public void getAll() {
         Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
         Resume[] actual = storage.getAll();
+        Arrays.sort(actual);
         Assertions.assertArrayEquals(expected, actual);
     }
 
@@ -68,20 +68,6 @@ public abstract class AbstractStorageTest {
         });
     }
 
-    @Test
-    public void storageOverflow() {
-        storage.clear();
-        for (int i = 0; i < STORAGE_LIMIT; i++) {
-            try {
-                storage.save(new Resume());
-            } catch (StorageException e) {
-                Assertions.fail("Storage overflow happened too early");
-            }
-        }
-        Assertions.assertThrows(StorageException.class, () -> {
-            storage.save(new Resume());
-        });
-    }
 
     @Test
     public void delete() {
