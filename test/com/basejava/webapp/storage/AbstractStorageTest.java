@@ -43,13 +43,13 @@ public abstract class AbstractStorageTest {
         storage.clear();
         assertSize(0);
         Resume[] emptyStorage = new Resume[0];
-        Assertions.assertArrayEquals(emptyStorage, storage.getAll());
+        Assertions.assertArrayEquals(emptyStorage, storage.getAllSorted().toArray(new Resume[0]));
     }
 
     @Test
     public void getAll() {
         Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        Resume[] actual = storage.getAll();
+        Resume[] actual = storage.getAllSorted().toArray(new Resume[0]);
         Arrays.sort(actual);
         Assertions.assertArrayEquals(expected, actual);
     }

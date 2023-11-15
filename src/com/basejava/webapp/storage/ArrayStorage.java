@@ -2,6 +2,10 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Array based storage for Resumes
  */
@@ -25,5 +29,11 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
+    }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        Arrays.sort(storage, Comparator.naturalOrder());
+        return List.of(storage);
     }
 }

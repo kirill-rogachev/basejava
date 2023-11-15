@@ -3,6 +3,7 @@ package com.basejava.webapp.storage;
 import com.basejava.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -19,15 +20,6 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
-    }
-
-    protected boolean isExist(Object searchKey) {
-        return searchKey != null;
-    }
-
-    @Override
     protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
@@ -35,6 +27,16 @@ public class ListStorage extends AbstractStorage {
             }
         }
         return null;
+    }
+
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        storage.sort(Comparator.naturalOrder());
+        return storage;
     }
 
     @Override

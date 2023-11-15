@@ -21,9 +21,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
+    protected abstract Integer getSearchKey(String uuid);
 
     @Override
     protected boolean isExist(Object searchKey) {
@@ -56,9 +54,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final Resume doGet(Object searchKey) {
         return storage[(int) searchKey];
     }
-
-    @Override
-    protected abstract Integer getSearchKey(String uuid);
 
     protected abstract void insertElement(Resume r, int index);
 

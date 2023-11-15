@@ -2,17 +2,20 @@ package com.basejava.webapp.model;
 
 import java.util.UUID;
 
-public class Resume implements Comparable<Resume>{
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private final String uuid;
+    private String fullName;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
+    public Resume(String fullName) {
+        uuid = UUID.randomUUID().toString();
+        this.fullName = fullName;
     }
 
-    public Resume(String uuid) {
+    public Resume(String uuid, String fullName) {
         this.uuid = uuid;
+        this.fullName = fullName;
     }
 
     public String getUuid() {
@@ -41,7 +44,9 @@ public class Resume implements Comparable<Resume>{
 
     @Override
     public int compareTo(Resume o) {
-        return uuid.compareTo(o.uuid);
+        int fullNameResult = fullName.compareTo(o.fullName);
+        return fullNameResult != 0 ? fullNameResult : uuid.compareTo(o.uuid);
+
     }
 }
 
