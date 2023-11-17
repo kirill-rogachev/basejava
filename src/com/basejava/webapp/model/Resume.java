@@ -44,8 +44,9 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        int fullNameResult = fullName.compareTo(o.fullName);
-        return fullNameResult != 0 ? fullNameResult : uuid.compareTo(o.uuid);
+        //int fullNameResult =
+        return fullName.compareTo(o.fullName);
+                //fullNameResult != 0 ? fullNameResult : uuid.compareTo(o.uuid);
 
     }
 }

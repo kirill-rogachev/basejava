@@ -30,10 +30,4 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
         return -1;
     }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        Arrays.sort(storage, Comparator.naturalOrder());
-        return List.of(storage);
-    }
 }
