@@ -3,6 +3,7 @@ package com.basejava.webapp.storage;
 import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,10 +58,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> getListToSort() {
         Resume[] returnedArray = Arrays.copyOfRange(storage, 0, size);
-        Arrays.sort(returnedArray);
-        return List.of(returnedArray);
+        return new ArrayList<>(Arrays.asList(returnedArray));
     }
 
     protected abstract void insertElement(Resume r, int index);

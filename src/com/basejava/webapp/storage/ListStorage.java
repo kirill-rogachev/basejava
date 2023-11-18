@@ -34,8 +34,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        storage.sort(Comparator.naturalOrder());
+    public List<Resume> getListToSort() {
         return storage;
     }
 
