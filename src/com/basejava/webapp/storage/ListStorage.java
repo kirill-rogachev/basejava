@@ -35,7 +35,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getListToSort() {
-        return storage;
+        return new ArrayList<>(storage);
     }
 
     @Override
