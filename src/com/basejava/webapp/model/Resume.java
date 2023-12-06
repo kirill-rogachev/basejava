@@ -1,5 +1,7 @@
 package com.basejava.webapp.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
@@ -7,7 +9,10 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private final String uuid;
 
-    private String fullName;
+    private final String fullName;
+
+    private final Map<ContactType, String> contacts = new HashMap<>();
+    private final Map<SectionType, Section> sections = new HashMap<>();
 
     public Resume(String fullName) {
         uuid = UUID.randomUUID().toString();
@@ -49,10 +54,8 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        //int fullNameResult =
-        return fullName.compareTo(o.fullName);
-                //fullNameResult != 0 ? fullNameResult : uuid.compareTo(o.uuid);
-
+        int fullNameResult = fullName.compareTo(o.fullName);
+        return fullNameResult != 0 ? fullNameResult : uuid.compareTo(o.uuid);
     }
 }
 
