@@ -8,9 +8,7 @@ public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private final String uuid;
-
     private final String fullName;
-
     private final Map<ContactType, String> contacts = new HashMap<>();
     private final Map<SectionType, Section> sections = new HashMap<>();
 
@@ -30,6 +28,14 @@ public class Resume implements Comparable<Resume> {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public void addContact(ContactType contactType, String contact) {
+        contacts.put(contactType, contact);
+    }
+
+    public void addSection(SectionType sectionType, Section section) {
+        sections.put(sectionType, section);
     }
 
     @Override
