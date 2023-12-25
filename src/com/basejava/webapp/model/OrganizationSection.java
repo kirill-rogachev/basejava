@@ -3,9 +3,16 @@ package com.basejava.webapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganizationSection {
+public class OrganizationSection extends Section {
 
-    String title;
-    String description;
-    List<Period> periods = new ArrayList<>();
+    private List<Period> periods;
+
+    public OrganizationSection(List<Period> periods) {
+        this.periods = periods;
+    }
+
+    public List<Period> getPeriods() {
+        return periods;
+    }
+
 }
