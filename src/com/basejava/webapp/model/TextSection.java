@@ -3,7 +3,7 @@ package com.basejava.webapp.model;
 import java.util.Objects;
 
 public class TextSection extends Section {
-    private String text;
+    private final String text;
 
     public TextSection(String text) {
         this.text = text;

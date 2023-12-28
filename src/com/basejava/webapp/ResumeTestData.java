@@ -40,24 +40,43 @@ public class ResumeTestData {
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle, MySQL, " +
                         "SQLite, MS SQL, HSQLDB")));
 
-        Period workPeriod1 = new Period("Java Online Projects", "http://javaops.ru/", "Автор проекта",
-                "Создание, организация и проведение Java онлайн " +
-                        "проектов и стажировок.", LocalDate.of(2013, 10, 1), LocalDate.now());
-        Period workPeriod2 = new Period("Wrike", "https://www.wrike.com/", "Старший разработчик (backend)",
-                "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven" +
-                        ", Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, " +
-                        "авторизация по OAuth1, OAuth2, JWT SSO.",
+        Period period1 = new Period("Автор проекта", "Создание, организация и проведение Java онлайн " +
+                "проектов и стажировок.", LocalDate.of(2013, 10, 1), LocalDate.now());
+        Organization workOrganization1 = new Organization("Java Online Projects", "http://javaops.ru/",
+                List.of(period1));
+
+        Period period2 = new Period("Старший разработчик (backend)", "Проектирование и разработка " +
+                "онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, " +
+                "PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.",
                 LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1));
-        resume.addSection(EXPERIENCE, new OrganizationSection(List.of(workPeriod1, workPeriod2)));
+        Organization workOrganization2 = new Organization("Wrike", "https://www.wrike.com/", List.of(period2));
 
-        Period educationPeriod1 = new Period("Coursera", "https://www.coursera.org/course/progfun",
-                "Functional Programming Principles in Scala' by Martin Odersky", "",
+        resume.addSection(EXPERIENCE, new OrganizationSection(List.of(workOrganization1, workOrganization2)));
+
+        Period period3 = new Period("Functional Programming Principles in Scala' by Martin Odersky", "",
                 LocalDate.of(2013, 3, 1), LocalDate.of(2013, 3, 1));
+        Organization educationOrganization1 = new Organization("Coursera",
+                "https://www.coursera.org/course/progfun", List.of(period3));
 
-        Period educationPeriod2 = new Period("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366",
-                "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'", "",
-                LocalDate.of(2011, 3, 1), LocalDate.of(2011, 3, 1));
-        resume.addSection(EDUCATION, new OrganizationSection(List.of(educationPeriod1, educationPeriod2)));
+        Period period4 = new Period("Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на " +
+                "UML.'", "", LocalDate.of(2011, 3, 1), LocalDate.of(2011,
+                3, 1));
+        Organization educationOrganization2 = new Organization("Luxoft",
+                "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", List.of(period4));
+
+        resume.addSection(EDUCATION, new OrganizationSection(List.of(educationOrganization1, educationOrganization2)));
+
+        Period period5 = new Period("Аспирантура (программист С, С++)", "",
+                LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7, 1));
+
+        Period period6 = new Period("Инженер (программист Fortran, C)", "",
+                LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1));
+
+        Organization educationOrganization3 = new Organization("Санкт-Петербургский национальный " +
+                "исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/",
+                List.of(period5, period6));
+        resume.addSection(EDUCATION, new OrganizationSection(List.of(educationOrganization1, educationOrganization2,
+                educationOrganization3)));
 
         System.out.println(resume.getFullName() + "\n");
         System.out.println(resume.getContact(ContactType.PHONE) + "\n" + resume.getContact(ContactType.SKYPE));
@@ -81,14 +100,14 @@ public class ResumeTestData {
 
         System.out.println("\n" + EXPERIENCE);
         OrganizationSection experience = (OrganizationSection) resume.getSection(EXPERIENCE);
-        for (Period period : experience.getPeriods()) {
-            System.out.println(period + "\n");
+        for (Organization organization : experience.getOrganizations()) {
+            System.out.println(organization + "\n");
         }
 
         System.out.println("\n" + EDUCATION);
         OrganizationSection education = (OrganizationSection) resume.getSection(EDUCATION);
-        for (Period period : education.getPeriods()) {
-            System.out.println(period);
+        for (Organization organization : education.getOrganizations()) {
+            System.out.println(organization);
         }
     }
 }

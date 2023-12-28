@@ -3,23 +3,18 @@ package com.basejava.webapp.model;
 public enum SectionType {
     OBJECTIVE("Позиция"),
     PERSONAL("Личные качества"),
-    ACHIEVEMENT ("Достижения"),
-    QUALIFICATIONS ("Квалификация"),
-    EXPERIENCE ("Опыт работы"),
-    EDUCATION ("Образование");
+    ACHIEVEMENT("Достижения"),
+    QUALIFICATIONS("Квалификация"),
+    EXPERIENCE("Опыт работы"),
+    EDUCATION("Образование");
 
-    private String title;
+    private final String title;
 
     SectionType(String title) {
         this.title = title;
     }
 
     public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public String toString() {
         return title;
     }
 }

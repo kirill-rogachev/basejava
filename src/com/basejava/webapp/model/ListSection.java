@@ -1,11 +1,14 @@
 package com.basejava.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends Section {
-    private List<String> list;
+    private final List<String> list;
+
+    public ListSection(List<String> list) {
+        this.list = list;
+    }
 
     public List<String> getList() {
         return list;
@@ -24,7 +27,8 @@ public class ListSection extends Section {
         return Objects.hash(list);
     }
 
-    public ListSection(List<String> list) {
-        this.list = list;
+    @Override
+    public String toString() {
+        return list.toString();
     }
 }
